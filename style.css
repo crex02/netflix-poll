@@ -17,8 +17,6 @@ h1 {
     display: flex;
     justify-content: center;
     color: red;
-    /* width: 100vw; */
-    /* height: 100vh; */
     font-size: 150px;
     text-align: center;
     font-family: 'Oswald', sans-serif;
@@ -43,7 +41,6 @@ h1 {
 }
 
 .serie-title {
-    /* text-align: center; */
     font-weight: bold;
     font-size: 30px;
     margin-top: 15px;
@@ -54,7 +51,6 @@ h1 {
 
 .serie-li {
 
-    /* border: solid 1px; */
     background-color: #141414;
     border-radius: 7px;
 

@@ -1,14 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Changa+One&family=Oswald:wght@700&family=Poppins:wght@700&family=Roboto:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
+* {
+    box-sizing: border-box;
+    transition: all 0.5s ease-out;
+}
 
-body {
-    background-color: #050505;
-    color: #fff;
+    body {
+    background-color: black;
+    color: white;
     display: flex;
     justify-content: center;
 }
 
-.netflixsvg{
+.netflixsvg {
     width: 50vw;
     padding: 50px;
 }
@@ -19,19 +23,46 @@ h1 {
     color: red;
     font-size: 150px;
     text-align: center;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 
 }
 
-.div-order-btn{
+.div-order-btn {
     display: flex;
     justify-content: center;
 }
 
-.btn-orderTitle{
+.serie-li {
+
+    background-color: black;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    width: 350px;
+    padding: 20px;
+    margin: 10px;
+    overflow: auto;
+
+}
+
+.serie-img {
+    border-radius: 3px;
+}
+
+.btn-orderTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
     border-radius: 7px;
     width: 75px;
     height: 75px;
+
+    padding: 10px;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .class-collectioUl {
@@ -48,30 +79,11 @@ h1 {
 
 }
 
-
-.serie-li {
-
-    background-color: #141414;
-    border-radius: 7px;
-
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    justify-content: center;
-
-    width: 350px;
-    padding: 20px;
-    margin: 10px;
-    overflow: auto;
-
-}
-
 .serie-upVotes-btn,
 .serie-downVotes-btn {
     border: solid 1px white;
     max-width: max-content;
-
-    background-color: #141414;
+    background-color: black;
     font-size: 20px;
     margin: 7px;
     border-radius: 20px;

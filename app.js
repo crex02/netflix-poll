@@ -1,129 +1,150 @@
-let netflixSeriesList = new Collection();
+let collectionSeries = new Collection('NETFLIX');
 
-displayNetflixSeries();
+displaySeries();    
 
-DataService.getSeries().then(data => {
-    fillSeriesArrayFromServer(data);
-    displayNetflixSeries();
-});
 
-function fillSeriesArrayFromServer(data) {
+DataService.getSerie().then(data => {
+    fillSerieArrayFromServer(data);
+    displaySeries();
+})
+
+function fillSerieArrayFromServer(data) {
     for (let i = 0; i < data.length; i++) {
         const object = data[i];
-        const serie = new Serie(object.title, object.creator, object.seasons, object.isCompleted, object.upVotes, object.downVotes, object.imageUrl, object.id);
-        netflixSeriesList.addSerie(serie);
-    };
-};
+
+        const serie = new Serie(object.title, object.creator, object.seasons, object.isComplete, object.upVotes, object.downVotes, object.imageURL, object.id);
+        collectionSeries.addSerie(serie);
+    }
+}
+
+
+function displaySeries() {             
+    console.log(collectionSeries);
+
+    const collectioSeriesTitle = document.getElementById('collection-name');
+    const collectionSeriesUl = document.getElementById('collection-listUl');
+    collectionSeriesUl.classList.add('class-collectioUl');
+
+    const titleNode = document.createTextNode(collectionSeries.title);
+    collectioSeriesTitle.innerHTML = '';       
+    collectioSeriesTitle.appendChild(titleNode);
+
+    collectionSeriesUl.innerHTML = '';
+
+    for (let i = 0; i < collectionSeries.serieArray.length; i++) {
+
+        const serie = collectionSeries.serieArray[i];
+
+        const newLi = document.createElement('li');
+        newLi.classList.add('serie-li');
+        
+        createIMGOfSerie(serie);      
+        createTitleOfSerie(serie);    
+        createCreatorOfSerie(serie);    
+        createSeasonsOfSerie(serie);    
+        createIsCompleteOfSerie(serie); 
+        createDivForVotes(serie);       
+        createUpVotesOfSerie(serie);  
+        createDownVotesOfSerie(serie);  
+
+        newLi.append(createIMGOfSerie(serie));
+        newLi.append(createTitleOfSerie(serie));
+        newLi.append(createCreatorOfSerie(serie));
+        newLi.append(createSeasonsOfSerie(serie));
+        newLi.append(createIsCompleteOfSerie(serie));
+        newLi.append(createDivForVotes(serie));
+
+        collectionSeriesUl.appendChild(newLi);
+
+    }
+}
+
+function createIMGOfSerie(serie) {
+    const imgTagIMG = document.createElement('img');
+    imgTagIMG.classList.add('serie-img');
+    imgTagIMG.src = serie.imageURL;
+
+    return imgTagIMG;
+}
+
+function createTitleOfSerie(serie) {
+
+    const titleSpan = document.createElement('span');
+    titleSpan.classList.add('serie-title');
+
+    const titleNode = document.createTextNode(serie.title);
+    titleSpan.appendChild(titleNode);
+
+    return titleSpan;
+}
+
+function createCreatorOfSerie(serie) {
+    const creatorSpan = document.createElement('span');
+    creatorSpan.classList.add('serie-creator');
+
+    const creatorNode = document.createTextNode('Creator: ' + serie.creator);
+    creatorSpan.appendChild(creatorNode);
+
+    return creatorSpan;
+}
+
+function createSeasonsOfSerie(serie) {
+    const seasonsSpan = document.createElement('span');
+    seasonsSpan.classList.add('serie-seasons');
+
+    const seasonsNode = document.createTextNode('Seasons: ' + serie.seasons);
+    seasonsSpan.appendChild(seasonsNode);
+
+    return seasonsSpan;
+}
+
+function createIsCompleteOfSerie(serie) {
+
+    const isCompleteSpan = document.createElement('span');
+    isCompleteSpan.classList.add('serie-isComplete');
+
+    const isCompleteNode = document.createTextNode('Status: ' + serie.isComplete);
+    if (serie.isComplete === true) {
+        serie.isComplete = 'Comleted';
+    } else {
+        serie.isComplete = 'In progress';
+    }
+    isCompleteSpan.appendChild(isCompleteNode);
+
+    return isCompleteSpan;
+}
+
+function createUpVotesOfSerie(serie) {
+    const upVotesButton = document.createElement('button');
+    upVotesButton.classList.add('serie-upVotes-btn')
+
+    const upVotesNode = document.createTextNode('👍')
+    upVotesButton.appendChild(upVotesNode);
+
+    return upVotesButton;
+}
+
+function createDownVotesOfSerie(serie) {
+    const downVotesButton = document.createElement('button');
+    downVotesButton.classList.add('serie-downVotes-btn')
+
+    const downVotesNode = document.createTextNode('👎')
+    downVotesButton.appendChild(downVotesNode);
+
+    return downVotesButton;
+}
+
+function createDivForVotes(serie) {
+    const divForVotes = document.createElement('div');
+    divForVotes.classList.add('div-ForVotes')
+
+    divForVotes.appendChild(createUpVotesOfSerie(serie));
+    divForVotes.appendChild(createDownVotesOfSerie(serie));
+
+    return divForVotes
+}
 
 function orderByTitle() {
-    netflixSeriesList.sortByTitle();
-    displayNetflixSeries();
-};
-
-function orderByUpVotes() {
-    netflixSeriesList.sortByUpVotes();
-    displayNetflixSeries();
-};
-
-function orderByDownVotes() {
-    netflixSeriesList.sortByDownVotes();
-    displayNetflixSeries();
-};
-
-function orderByBestSeries() {
-    netflixSeriesList.sortByBestSeries();
-    displayNetflixSeries();
-};
-
-function displayNetflixSeries() {
-    const seriesBox = document.getElementById('series-box');
-    seriesBox.innerHTML = '';
-    const seriesArray = netflixSeriesList.series;
-    for (let i = 0; i < seriesArray.length; i++) {
-
-        const serie = seriesArray[i];
-        const divSeries = document.createElement('div');
-        divSeries.classList.add('series');
-
-        const serieImg = document.createElement('img');
-        serieImg.classList.add('series-img');
-        serieImg.src = serie.imageUrl;
-
-        const seriesUl = document.createElement('ul');
-
-        const titleList = document.createElement('li');
-        const creatorList = document.createElement('li');
-        const seasonsList = document.createElement('li');
-        const statusList = document.createElement('li');
-        const positiveList = document.createElement('li');
-        const negativeList = document.createElement('li');
-
-        const titleText = document.createTextNode(`Title: ${serie.title}`);
-        const creatorText = document.createTextNode(`Creator: ${serie.creator}`);
-        const seasonsText = document.createTextNode(`Seasons: ${serie.seasons}`);
-        const statusText = document.createTextNode(`Status: ${serie.ifIsCompleted}`);
-        const positiveText = document.createTextNode(`Positive Votes: ${serie.upVotes}`);
-        const negativeText = document.createTextNode(`Negative Votes: ${serie.downVotes}`);
-
-        titleList.appendChild(titleText);
-        creatorList.appendChild(creatorText);
-        seasonsList.appendChild(seasonsText);
-        statusList.appendChild(statusText);
-        positiveList.appendChild(positiveText);
-        negativeList.appendChild(negativeText);
-
-        seriesUl.appendChild(titleList);
-        seriesUl.appendChild(creatorList);
-        seriesUl.appendChild(seasonsList);
-        seriesUl.appendChild(statusList);
-        seriesUl.appendChild(positiveList);
-        seriesUl.appendChild(negativeList);
-
-        const ratingSpan = document.createElement('span');
-        ratingSpan.classList.add('rating-span');
-        const ratingText = document.createTextNode('Rating: ' + serie.rating() + '%');
-        ratingSpan.appendChild(ratingText);
-
-        
-        const upVotesBtn = document.createElement('button');
-        const downVotesBtn = document.createElement('button');
-        
-        upVotesBtn.classList.add('upVotes-btn');
-        downVotesBtn.classList.add('downVotes-btn');
-
-        const upVotesImg = document.createElement('img');
-        const downVotesImg = document.createElement('img');
-
-        upVotesImg.src = './assets/up.svg';
-        downVotesImg.src = './assets/down.svg';
-
-        upVotesImg.classList.add('upVotes-img');
-        downVotesImg.classList.add('downVotes-img');
-
-        upVotesBtn.appendChild(upVotesImg);
-        downVotesBtn.appendChild(downVotesImg);
-
-        upVotesBtn.addEventListener('click', (event) => {
-            serie.upVotesPlus();
-            displayNetflixSeries();
-            DataService.putSerie(serie).than(updateSerie => {
-                displayNetflixSeries();
-            });
-        });
-        downVotesBtn.addEventListener('click', (event) => {
-            serie.downVotesPlus();
-            displayNetflixSeries();
-            DataService.putSerie(serie).than(updateSerie => {
-                displayNetflixSeries();
-            });
-        });
-        
-        divSeries.appendChild(serieImg);
-        divSeries.appendChild(seriesUl);
-        divSeries.appendChild(ratingSpan);
-        divSeries.appendChild(upVotesBtn);
-        divSeries.appendChild(downVotesBtn);
-
-        seriesBox.appendChild(divSeries);
-    };
-};
+    collectionSeries.sortByTitle();
+    displaySeries();
+}

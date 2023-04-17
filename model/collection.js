@@ -1,41 +1,26 @@
-class Collection{
+class Collection {
 
-    constructor(series = []){
-        this.series = series;
-    };
+    constructor(title, serieArray = []) {
+        this.title = title;
+        this.serieArray = serieArray;
+    }
 
     addSerie(serie) {
-        this.series.push(serie);
-    };
-
-    removeSerie(serie) {
-        this.series = this.series.filter((element) => element !== serie);
-    };
+        this.serieArray.push(serie);
+    }
 
     sortByTitle() {
-        return this.series.sort((serie1, serie2) => serie1.compareByTitle(serie2));
-    };
+        return this.serieArray.sort((serie1, serie2) => serie1.compareByTitle(serie2))
+    }
 
-    sortByUpVotes() {
-        return this.series.sort((serie1, serie2) => serie1.compareByUpVotes(serie2));
-    };
-
-    sortByDownVotes() {
-        return this.series.sort((serie1, serie2) => serie1.compareByDownVotes(serie2));
-    };
-
-    sortByBestSeries() {
-        return this.series.sort((serie1, serie2) => serie1.compareByBest(serie2));
-    };
-
-    static fromObjectArray(objectArray) {
-        const newSerieList = new Collection();
+    static fromObjectArray(title, objectArray) {
+        const newCollection = new Collection(title);
         for (let i = 0; i < objectArray.length; i++) {
             const serieObject = objectArray[i];
-            const newSerie = new Serie.fromSeriesObject(serieObject);
-            newSerieList.addSerie(newSerie);
-        };
-        return newSerieList;
-    };
+            const newSerie = Serie.fromTodoObject(serieObject);
+            newCollection.addSerie(newSerie);
+        }
+        return newCollection;
+    }
 
-};
+}

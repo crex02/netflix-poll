@@ -29,7 +29,6 @@ h1 {
 }
 
 .serie-li {
-
     background-color: black;
     border-radius: 7px;
     display: flex;
@@ -59,6 +58,11 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.serie-img {
+    border-radius: 10px;
+    overflow: auto;
 }
 
 .serie-title {

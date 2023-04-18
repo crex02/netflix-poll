@@ -1,8 +1,7 @@
 class Serie {
 
-    constructor(title, creator, seasons, isComplete, upVotes, downVotes, imageURL, id) {
+    constructor(title, seasons, isComplete, upVotes, downVotes, imageURL, id) {
         this.title = title;
-        this.creator = creator;
         this.seasons = seasons;
         this.isComplete = isComplete;
         this.upVotes = upVotes;
@@ -16,14 +15,17 @@ class Serie {
         return this.title.localeCompare(serie2.title);
     }
 
+    compareByBestSerie(serie2) {
+        return this.upVotes.localeCompare(serie2.upVotes);
+    }
+
     static fromSerieObject(serieObject) {
-        return new Serie(serieObject.title, serieObject.creator, serieObject.seasons, serieObject.isComplete, serieObject.upVotes, serieObject.downVotes, serieObject.imageURL, serieObject.id);
+        return new Serie(serieObject.title, serieObject.seasons, serieObject.isComplete, serieObject.upVotes, serieObject.downVotes, serieObject.imageURL, serieObject.id);
     }
 
     toDbModel() {
         const dbModel = {
             title: this.title,
-            creator: this.creator,
             seasons: this.seasons,
             isComplete: this.isComplete,
             upVotes: this.upVotes,

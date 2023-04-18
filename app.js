@@ -12,7 +12,7 @@ function fillSerieArrayFromServer(data) {
     for (let i = 0; i < data.length; i++) {
         const object = data[i];
 
-        const serie = new Serie(object.title, object.creator, object.seasons, object.isComplete, object.upVotes, object.downVotes, object.imageURL, object.id);
+        const serie = new Serie(object.title, object.seasons, object.isComplete, object.upVotes, object.downVotes, object.imageURL, object.id);
         collectionSeries.addSerie(serie);
     }
 }
@@ -39,8 +39,7 @@ function displaySeries() {
         newLi.classList.add('serie-li');
         
         createIMGOfSerie(serie);      
-        createTitleOfSerie(serie);    
-        createCreatorOfSerie(serie);    
+        createTitleOfSerie(serie);        
         createSeasonsOfSerie(serie);    
         createIsCompleteOfSerie(serie); 
         createDivForVotes(serie);       
@@ -49,7 +48,6 @@ function displaySeries() {
 
         newLi.append(createIMGOfSerie(serie));
         newLi.append(createTitleOfSerie(serie));
-        newLi.append(createCreatorOfSerie(serie));
         newLi.append(createSeasonsOfSerie(serie));
         newLi.append(createIsCompleteOfSerie(serie));
         newLi.append(createDivForVotes(serie));
@@ -76,16 +74,6 @@ function createTitleOfSerie(serie) {
     titleSpan.appendChild(titleNode);
 
     return titleSpan;
-}
-
-function createCreatorOfSerie(serie) {
-    const creatorSpan = document.createElement('span');
-    creatorSpan.classList.add('serie-creator');
-
-    const creatorNode = document.createTextNode('Creator: ' + serie.creator);
-    creatorSpan.appendChild(creatorNode);
-
-    return creatorSpan;
 }
 
 function createSeasonsOfSerie(serie) {
@@ -148,3 +136,8 @@ function orderByTitle() {
     collectionSeries.sortByTitle();
     displaySeries();
 }
+
+function orderByBestSeries() {
+    collectionSeries.sortByBestSeries();
+    displayNetflixSeries();
+};

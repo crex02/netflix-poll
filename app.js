@@ -1,4 +1,4 @@
-let collectionSeries = new Collection('NETFLIX');
+let collectionSeries = new Collection('NetFlix');
 
 displaySeries();    
 

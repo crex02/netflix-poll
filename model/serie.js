@@ -8,7 +8,6 @@ class Serie {
         this.downVotes = downVotes;
         this.imageURL = imageURL;
         this.id = id;
-
     }
 
     compareByTitle(serie2) {

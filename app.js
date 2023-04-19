@@ -1,6 +1,6 @@
 let collectionSeries = new Collection('NetFlix');
 
-displaySeries();    
+displaySeries();
 
 
 DataService.getSerie().then(data => {
@@ -11,14 +11,13 @@ DataService.getSerie().then(data => {
 function fillSerieArrayFromServer(data) {
     for (let i = 0; i < data.length; i++) {
         const object = data[i];
-
         const serie = new Serie(object.title, object.seasons, object.isComplete, object.upVotes, object.downVotes, object.imageURL, object.id);
         collectionSeries.addSerie(serie);
     }
 }
 
 
-function displaySeries() {             
+function displaySeries() {
     console.log(collectionSeries);
 
     const collectioSeriesTitle = document.getElementById('collection-name');
@@ -26,7 +25,7 @@ function displaySeries() {
     collectionSeriesUl.classList.add('class-collectioUl');
 
     const titleNode = document.createTextNode(collectionSeries.title);
-    collectioSeriesTitle.innerHTML = '';       
+    collectioSeriesTitle.innerHTML = '';
     collectioSeriesTitle.appendChild(titleNode);
 
     collectionSeriesUl.innerHTML = '';
@@ -37,14 +36,14 @@ function displaySeries() {
 
         const newLi = document.createElement('li');
         newLi.classList.add('serie-li');
-        
-        createIMGOfSerie(serie);      
-        createTitleOfSerie(serie);        
-        createSeasonsOfSerie(serie);    
-        createIsCompleteOfSerie(serie); 
-        createDivForVotes(serie);       
-        createUpVotesOfSerie(serie);  
-        createDownVotesOfSerie(serie);  
+
+        createIMGOfSerie(serie);
+        createTitleOfSerie(serie);
+        createSeasonsOfSerie(serie);
+        createIsCompleteOfSerie(serie);
+        createDivForVotes(serie);
+        createUpVotesOfSerie(serie);
+        createDownVotesOfSerie(serie);
 
         newLi.append(createIMGOfSerie(serie));
         newLi.append(createTitleOfSerie(serie));
@@ -93,9 +92,9 @@ function createIsCompleteOfSerie(serie) {
 
     const isCompleteNode = document.createTextNode('Status: ' + serie.isComplete);
     if (serie.isComplete === true) {
-        serie.isComplete = 'Comleted';
+        serie.isComplete = 'Completed';
     } else {
-        serie.isComplete = 'In progress';
+        serie.isComplete = 'Developing';
     }
     isCompleteSpan.appendChild(isCompleteNode);
 
@@ -104,19 +103,21 @@ function createIsCompleteOfSerie(serie) {
 
 function createUpVotesOfSerie(serie) {
     const upVotesButton = document.createElement('button');
-    upVotesButton.classList.add('serie-upVotes-btn')
+    upVotesButton.classList.add('serie-upVotes-btn');
+    const upVotesNode = document.createTextNode('👍');
 
-    const upVotesNode = document.createTextNode('👍')
+    upVotesButton.addEventListener('click', (event) => counterUpVotesClicks(serie))
     upVotesButton.appendChild(upVotesNode);
-
+    
     return upVotesButton;
 }
 
 function createDownVotesOfSerie(serie) {
     const downVotesButton = document.createElement('button');
-    downVotesButton.classList.add('serie-downVotes-btn')
+    downVotesButton.classList.add('serie-downVotes-btn');
+    const downVotesNode = document.createTextNode('👎');
 
-    const downVotesNode = document.createTextNode('👎')
+    downVotesButton.addEventListener('click', (event) => counterDownVotesClicks(serie))
     downVotesButton.appendChild(downVotesNode);
 
     return downVotesButton;
@@ -124,12 +125,12 @@ function createDownVotesOfSerie(serie) {
 
 function createDivForVotes(serie) {
     const divForVotes = document.createElement('div');
-    divForVotes.classList.add('div-ForVotes')
+    divForVotes.classList.add('div-ForVotes');
 
     divForVotes.appendChild(createUpVotesOfSerie(serie));
     divForVotes.appendChild(createDownVotesOfSerie(serie));
 
-    return divForVotes
+    return divForVotes;
 }
 
 function orderByTitle() {
@@ -139,5 +140,5 @@ function orderByTitle() {
 
 function orderByBestSeries() {
     collectionSeries.sortByBestSeries();
-    displayNetflixSeries();
+    displaySeries();
 };

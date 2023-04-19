@@ -18,6 +18,11 @@ class Serie {
         return this.upVotes.localeCompare(serie2.upVotes);
     }
 
+    compareByWorstSerie(serie2) {
+        return this.downVotes.localeCompare(serie2.downVotes);
+    }
+
+
     static fromSerieObject(serieObject) {
         return new Serie(serieObject.title, serieObject.seasons, serieObject.isComplete, serieObject.upVotes, serieObject.downVotes, serieObject.imageURL, serieObject.id);
     }

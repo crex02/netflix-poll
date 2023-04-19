@@ -1,4 +1,4 @@
-let collectionSeries = new Collection('NetFlix');
+let collectionSeries = new Collection('NETFLIX');
 
 displaySeries();
 
@@ -41,15 +41,16 @@ function displaySeries() {
         createTitleOfSerie(serie);
         createSeasonsOfSerie(serie);
         createIsCompleteOfSerie(serie);
-        createDivForVotes(serie);
         createUpVotesOfSerie(serie);
         createDownVotesOfSerie(serie);
+        createDivForVotes(serie);
 
         newLi.append(createIMGOfSerie(serie));
         newLi.append(createTitleOfSerie(serie));
         newLi.append(createSeasonsOfSerie(serie));
         newLi.append(createIsCompleteOfSerie(serie));
-        newLi.append(createDivForVotes(serie));
+        newLi.append(createUpVotesOfSerie(serie));
+        newLi.append(createDownVotesOfSerie(serie));
 
         collectionSeriesUl.appendChild(newLi);
 
@@ -90,12 +91,14 @@ function createIsCompleteOfSerie(serie) {
     const isCompleteSpan = document.createElement('span');
     isCompleteSpan.classList.add('serie-isComplete');
 
-    const isCompleteNode = document.createTextNode('Status: ' + serie.isComplete);
+    
+    let status;
     if (serie.isComplete === true) {
-        serie.isComplete = 'Completed';
+        status = 'Completed';
     } else {
-        serie.isComplete = 'Developing';
+        status = 'Developing';
     }
+    const isCompleteNode = document.createTextNode('Status: ' + status);
     isCompleteSpan.appendChild(isCompleteNode);
 
     return isCompleteSpan;
@@ -138,7 +141,12 @@ function orderByTitle() {
     displaySeries();
 }
 
-function orderByBestSeries() {
-    collectionSeries.sortByBestSeries();
+function orderByUpVotes() {
+    collectionSeries.sortByUpVotes();
+    displaySeries();
+};
+
+function orderByDownVotes() {
+    collectionSeries.sortByDownVotes();
     displaySeries();
 };

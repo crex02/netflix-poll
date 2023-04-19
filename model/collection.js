@@ -10,7 +10,15 @@ class Collection {
     }
 
     sortByTitle() {
-        return this.serieArray.sort((serie1, serie2) => serie1.compareByTitle(serie2))
+        this.serieArray.sort((serie1,serie2) => serie1.title.localeCompare(serie2.title));
+    }
+
+    sortByUpVotes(){
+        this.serieArray.sort((serie1,serie2) => serie2.upVotes - serie1.upVotes);
+    }
+
+    sortByDownVotes(){
+        this.serieArray.sort((serie1,serie2) => serie2.downVotes - serie1.downVotes);
     }
 
     static fromObjectArray(title, objectArray) {

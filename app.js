@@ -150,3 +150,14 @@ function orderByDownVotes() {
     collectionSeries.sortByDownVotes();
     displaySeries();
 };
+
+function counterUpVotesClicks(serie) {
+    
+    serie.upVotes+=1;
+    DataService.putSerie(serie).then(collectionSeries => displaySeries());
+}
+
+function counterDownVotesClicks(serie) {
+    serie.downVotes+=1;
+    DataService.putSerie(serie).then(collectionSeries => displaySeries())
+}

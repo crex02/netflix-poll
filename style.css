@@ -25,7 +25,10 @@ h1 {
 
 .div-order-btn {
     display: flex;
+    align-self: center;
+    align-items: center;
     justify-content: center;
+    text-align: center;
     padding: 10px 10px 10px 10px;
 
 }

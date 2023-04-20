@@ -27,8 +27,8 @@ class Serie {
         return new Serie(serieObject.title, serieObject.seasons, serieObject.isComplete, serieObject.upVotes, serieObject.downVotes, serieObject.imageURL, serieObject.id);
     }
 
-    toDbModel() {
-        const dbModel = {
+    listModel() {
+        const model = {
             title: this.title,
             seasons: this.seasons,
             isComplete: this.isComplete,
@@ -37,6 +37,6 @@ class Serie {
             imageURL: this.imageURL,
             id: this.id
         }
-        return dbModel;
+        return model;
     }
 }

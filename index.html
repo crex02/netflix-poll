@@ -16,10 +16,19 @@
 
         <h1 class="collection-name-class" id="collection-name"></h1>
 
+        <img class="loading-pizza" id="loading-icon" src="assets/pizza loading gid.gif" alt="">
+        
         <div class="div-order-btn">
             <button class="btn-orderTitle" onclick="orderByTitle()"> Title </button>
             <button class="btn-orderByBest" onclick="orderByUpVotes()"> Best Serie </button>
             <button class="btn-orderByWorst" onclick="orderByDownVotes()"> Worst Serie </button>
+            <button class="btn-orderByRanking" onclick="sortCollectionByRating()"> Best Ranking </button>
+        </div>
+
+        <div class="div-insert-title">
+            <span>Insert Title</span>
+            <input type="text" id="title-input">
+            <button onclick="saveNewSerie()">Save</button>
         </div>
 
         <ul id="collection-listUl"></ul>

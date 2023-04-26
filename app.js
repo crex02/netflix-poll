@@ -2,10 +2,15 @@ let collectionSeries = new Collection('NETFLIX');
 
 displaySeries();
 
-
-DataService.getSerie().then(data => {
+startLoading()
+DataService.getSerie()
+.then(data => {
     fillSerieArrayFromServer(data);
     displaySeries();
+    stopLoading();
+}).catch ( err => {
+    displayErrorMessage ('Attenction, there is an error here!');
+    stopLoading();
 })
 
 function fillSerieArrayFromServer(data) {
@@ -128,13 +133,14 @@ function createDownVotesOfSerie(serie) {
 
 function createDivForVotes(serie) {
     const divForVotes = document.createElement('div');
-    divForVotes.classList.add('div-ForVotes');
+    divForVotes.classList.add('div-forVotes');
 
     divForVotes.appendChild(createUpVotesOfSerie(serie));
     divForVotes.appendChild(createDownVotesOfSerie(serie));
 
     return divForVotes;
 }
+
 
 function orderByTitle() {
     collectionSeries.sortByTitle();
@@ -149,15 +155,49 @@ function orderByUpVotes() {
 function orderByDownVotes() {
     collectionSeries.sortByDownVotes();
     displaySeries();
-};
+}
+
+function sortCollectionByRating(){
+    collectionSeries.sortByRating();
+    displaySeries();
+}
 
 function counterUpVotesClicks(serie) {
-    
     serie.upVotes+=1;
-    DataService.putSerie(serie).then(collectionSeries => displaySeries());
+    DataService.putSerie(serie).then(modifiedSerie => displaySeries());
 }
 
 function counterDownVotesClicks(serie) {
     serie.downVotes+=1;
-    DataService.putSerie(serie).then(collectionSeries => displaySeries())
+    DataService.putSerie(serie).then(modifiedSerie => displaySeries())
+}
+
+
+function saveNewSerie(){
+    const titleInput = document.getElementById('title-input');
+    const newSerieTitle = titleInput.value;
+    const newSerie = new Serie(newSerieTitle);
+    console.log(newSerie);
+   
+    DataService.postSerie(newSerie).then(savedSerie => {
+        newSerie.id = savedSerie.id;
+        collectionSeries.addSerie(newSerie);
+        displaySeries();
+    })
+}
+
+function displayErrorMessage(message) {
+        const errorMessage = document.getElementById('error-message');
+        const errorNode = document.createTextNode (message);
+        errorMessage.appendChild(errorNode);
+}
+
+function startLoading() {
+    const loadingIcon = document.getElementById('loading-icon');
+    loadingIcon.style.display = 'inline-block';
+}
+
+function stopLoading() {
+    const loadingIcon = document.getElementById('loading-icon');
+    loadingIcon.style.display = 'none';
 }

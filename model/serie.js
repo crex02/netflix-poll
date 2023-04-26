@@ -22,6 +22,18 @@ class Serie {
         return this.downVotes.localeCompare(serie2.downVotes);
     }
 
+    compareByRating(serie){
+        const myUpPoints = this.upVotes * 2;
+        const myDownPoints = this.downVotes;
+        const myRating = myUpPoints - myDownPoints;
+
+        const otherUpPoints = serie.upVotes * 2;
+        const otherDownPoints = serie.downVotes;
+        const otherRating = otherUpPoints - otherDownPoints;
+
+        return otherRating - myRating;
+
+    }
 
     static fromSerieObject(serieObject) {
         return new Serie(serieObject.title, serieObject.seasons, serieObject.isComplete, serieObject.upVotes, serieObject.downVotes, serieObject.imageURL, serieObject.id);

@@ -46,6 +46,7 @@ h1 {
     overflow: auto;
 }
 
+.btn-orderByRanking,
 .btn-orderByWorst,
 .btn-orderByBest,
 .btn-orderTitle {
@@ -87,4 +88,18 @@ h1 {
     font-size: 30px;
     margin: 10px;
     border-radius: 20px;
+}
+
+.div-insert-title{
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 10px 10px 10px;
+}
+
+.loading-pizza{
+    height: 200px;
+    display: none;
 }
